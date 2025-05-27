@@ -11,6 +11,20 @@ const $checkIcon = document.getElementById("check-icon");
 const $fileName = document.getElementById("file-name");
 const $downloadButton = document.getElementById("btn-download");
 let htmlResult = "";
+const fileIcon = `<svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="size-6 mr-2"
+            >
+              <path
+                stroke="#000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 17h6m-6-4h6M9 9h1m3-6H8.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C5 4.52 5 5.08 5 6.2v11.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C6.52 21 7.08 21 8.2 21h7.6c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874C19 19.48 19 18.92 19 17.8V9m-6-6 6 6m-6-6v4.4c0 .56 0 .84.109 1.054a1 1 0 0 0 .437.437C13.76 9 14.04 9 14.6 9H19"
+              />
+            </svg>`;
 
 async function enviarArchivo() {
   const $input2 = document.getElementById("dropzone-file");
@@ -78,7 +92,7 @@ const inputFileChange = () => {
     $checkIcon.classList.remove("hidden");
     $fileName.classList.remove("hidden");
     $fileName.classList.add("flex");
-    $fileName.innerHTML += `${$input.files[0].name} | ${(
+    $fileName.innerHTML = `${fileIcon} ${$input.files[0].name} | ${(
       $input.files[0].size / 1024
     ).toFixed(1)} KB`;
   } else $sendButton.disabled = true;
