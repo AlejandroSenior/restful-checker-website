@@ -8,6 +8,8 @@ const $file = $input.files[0];
 const $uploadIcon = document.getElementById("upload-icon");
 const $checkIcon = document.getElementById("check-icon");
 const $fileName = document.getElementById("file-name");
+const $downloadButton = document.getElementById("btn-download");
+let htmlResult = "";
 
 async function enviarArchivo() {
   const $input2 = document.getElementById("dropzone-file");
@@ -41,21 +43,11 @@ async function enviarArchivo() {
     }
 
     // Leer el HTML de la respuesta
-    const html = await response.text();
+    htmlResult = await response.text();
 
-    // Mostrarlo en un <div> (también podrías abrirlo en una nueva pestaña)
+    // Mostrarlo en el dialog
     $dialog.showModal();
-    $dialogContent.innerHTML = html;
-
-    // O si prefieres descargar el resultado como archivo
-    /*
-    const blob = new Blob([html], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'resultado.html';
-    a.click();
-    */
+    $dialogContent.innerHTML = htmlResult;
   } catch (error) {
     console.error("Error al enviar el archivo:", error);
   } finally {
@@ -67,8 +59,23 @@ async function enviarArchivo() {
   }
 }
 
+const downloadResult = () => {
+  const blob = new Blob([htmlResult], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "resultado.html";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
 $sendButton.addEventListener("click", () => {
   enviarArchivo();
+});
+
+$downloadButton.addEventListener("click", () => {
+  downloadResult();
 });
 
 $input.addEventListener("change", () => {
