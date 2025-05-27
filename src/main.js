@@ -4,6 +4,7 @@ const $dialogContent = document.getElementById("dialog-content");
 const $btnText = document.getElementById("btn-text");
 const $btnSpinner = document.getElementById("btn-spinner");
 const $input = document.getElementById("dropzone-file");
+const $dropzone = document.getElementById("dropzone");
 const $file = $input.files[0];
 const $uploadIcon = document.getElementById("upload-icon");
 const $checkIcon = document.getElementById("check-icon");
@@ -70,15 +71,7 @@ const downloadResult = () => {
   document.body.removeChild(a);
 };
 
-$sendButton.addEventListener("click", () => {
-  enviarArchivo();
-});
-
-$downloadButton.addEventListener("click", () => {
-  downloadResult();
-});
-
-$input.addEventListener("change", () => {
+const inputFileChange = () => {
   if ($input.files.length) {
     $sendButton.disabled = false;
     $uploadIcon.classList.add("hidden");
@@ -89,4 +82,39 @@ $input.addEventListener("change", () => {
       $input.files[0].size / 1024
     ).toFixed(1)} KB`;
   } else $sendButton.disabled = true;
+};
+
+$sendButton.addEventListener("click", () => {
+  enviarArchivo();
+});
+
+$downloadButton.addEventListener("click", () => {
+  downloadResult();
+});
+
+$input.addEventListener("change", () => {
+  inputFileChange();
+});
+
+$dropzone.addEventListener("drop", (e) => {
+  e.preventDefault();
+  const files = e.dataTransfer.files;
+  $input.files = files;
+  inputFileChange();
+});
+
+$dropzone.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  $dropzone.classList.remove("bg-gray-50");
+  $dropzone.classList.add("bg-gray-100");
+  $dropzone.classList.add("border-gray-400");
+  $dropzone.classList.remove("border-gray-300");
+});
+
+$dropzone.addEventListener("dragleave", (e) => {
+  e.preventDefault();
+  $dropzone.classList.remove("bg-gray-100");
+  $dropzone.classList.add("bg-gray-50");
+  $dropzone.classList.remove("border-gray-300");
+  $dropzone.classList.add("border-gray-400");
 });

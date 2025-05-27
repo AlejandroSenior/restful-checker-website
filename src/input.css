@@ -7,7 +7,6 @@ html {
 body {
   font-family: sans-serif;
   padding: 2rem;
-  background: #f0f0f0;
 }
 
 dialog::backdrop {
