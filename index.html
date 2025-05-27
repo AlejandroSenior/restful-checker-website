@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consulta a API</title>
+    <link href="src/output.css" rel="stylesheet" />
+  </head>
+
+  <body class="h-dvh content-center">
+    <h1 class="text-2xl font-extrabold text-center">RESTful API Checker</h1>
+
+    <h3 class="text-center text-pretty max-w-[500px] mx-auto my-5">
+      Select a json file and analyzes a Swagger/OpenAPI specification and
+      validates its compliance with RESTful best practices
+    </h3>
+
+    <div class="mx-auto w-full max-w-[600px]">
+      <label
+        for="dropzone-file"
+        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
+      >
+        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+          <svg
+            id="upload-icon"
+            class="size-8 mb-4 text-gray-500"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 16"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+            />
+          </svg>
+
+          <svg
+            id="check-icon"
+            class="size-10 mb-4 hidden"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="#55ec82"
+            stroke-width="0"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill="#55ec82"
+              fill-rule="evenodd"
+              stroke="none"
+              d="M3 10a7 7 0 0 1 9.307-6.611 1 1 0 0 0 .658-1.889 9 9 0 1 0 5.98 7.501 1 1 0 0 0-1.988.22A7 7 0 1 1 3 10zm14.75-5.338a1 1 0 0 0-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 0 0-1.264 1.55l3.929 3.2a1 1 0 0 0 1.38-.113l7.072-8z"
+            />
+          </svg>
+
+          <p class="mb-2 text-sm text-gray-500">
+            <span class="font-semibold">Click to upload</span> or drag and drop
+          </p>
+
+          <p id="file-name" class="hidden font-bold align-middle mt-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="size-6 mr-2"
+            >
+              <path
+                stroke="#000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 17h6m-6-4h6M9 9h1m3-6H8.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C5 4.52 5 5.08 5 6.2v11.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C6.52 21 7.08 21 8.2 21h7.6c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874C19 19.48 19 18.92 19 17.8V9m-6-6 6 6m-6-6v4.4c0 .56 0 .84.109 1.054a1 1 0 0 0 .437.437C13.76 9 14.04 9 14.6 9H19"
+              />
+            </svg>
+          </p>
+        </div>
+
+        <input id="dropzone-file" type="file" class="hidden" />
+      </label>
+    </div>
+
+    <div class="flex items-center justify-center w-full mt-10">
+      <button
+        id="btn-check"
+        class="px-10 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+        disabled
+      >
+        <svg
+          id="btn-spinner"
+          aria-hidden="true"
+          role="status"
+          class="hidden size-5 text-white animate-spin"
+          viewBox="0 0 100 101"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+            fill="#E5E7EB"
+          />
+          <path
+            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+            fill="currentColor"
+          />
+        </svg>
+
+        <p id="btn-text">Check</p>
+      </button>
+    </div>
+
+    <p
+      class="text-sm text-center text-gray-400 text-pretty max-w-[500px] mx-auto mt-15"
+    >
+      It generates a comprehensive HTML report with status, warnings, and
+      critical issues, helping you improve your API design before deployment or
+      review.
+    </p>
+
+    <dialog
+      id="dialog"
+      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl min-w-[350px]"
+      closedby="any"
+    >
+      <form method="dialog" class="p-10 text-pretty">
+        <p id="dialog-content" class="max-w-[500px]"></p>
+
+        <div class="text-center mt-8">
+          <button
+            type="submit"
+            class="bg-gray-200 px-5 py-2 rounded-lg cursor-pointer font-bold text-balance hover:bg-gray-400 focus:outline-none"
+          >
+            Cerrar
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 2rem;
+  background: #f0f0f0;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
