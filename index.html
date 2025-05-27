@@ -3,15 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Consulta a API</title>
+    <title>RESTful Checker</title>
     <link href="src/output.css" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   </head>
 
   <body class="h-dvh content-center">
     <h1 class="text-2xl font-extrabold text-center">RESTful API Checker</h1>
 
     <h3 class="text-center text-pretty max-w-[500px] mx-auto my-5">
-      Select a json file and analyzes a Swagger/OpenAPI specification and
+      Select a json, yml or yaml file and analyzes a Swagger/OpenAPI specification and
       validates its compliance with RESTful best practices
     </h3>
 
@@ -110,7 +111,7 @@
 
     <dialog
       id="dialog"
-      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl min-w-[350px]"
+      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl min-w-[600px]"
       closedby="any"
     >
       <form method="dialog" class="p-10 text-pretty">
@@ -121,7 +122,7 @@
             id="btn-download"
             class="bg-gray-200 px-5 py-2 rounded-lg cursor-pointer font-bold text-balance hover:bg-gray-400 focus:outline-none"
           >
-            Descargar
+            Download
           </button>
         </div>
       </form>
