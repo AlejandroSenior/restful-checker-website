@@ -429,6 +429,10 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+.dropzone-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;

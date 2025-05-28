@@ -26,7 +26,7 @@ const fileIcon = `<svg
               />
             </svg>`;
 
-async function enviarArchivo() {
+const enviarArchivo = async () => {
   const $input2 = document.getElementById("dropzone-file");
   const $file2 = $input2.files[0];
 
@@ -41,6 +41,8 @@ async function enviarArchivo() {
     $btnText.classList.add("hidden");
     $sendButton.disabled = true;
     $sendButton.classList.add("animate-pulse");
+    $input.disabled = true;
+    $dropzone.classList.add("dropzone-disabled");
 
     const response = await fetch(
       "https://restful-checker-api.onrender.com/analyze",
@@ -71,8 +73,10 @@ async function enviarArchivo() {
     $btnText.classList.remove("hidden");
     $sendButton.disabled = false;
     $sendButton.classList.remove("animate-pulse");
+    $input.disabled = false;
+    $dropzone.classList.remove("dropzone-disabled");
   }
-}
+};
 
 const downloadResult = () => {
   const blob = new Blob([htmlResult], { type: "text/html" });
