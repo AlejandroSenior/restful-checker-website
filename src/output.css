@@ -365,6 +365,12 @@
   .border-gray-400 {
     border-color: var(--color-gray-400);
   }
+  .bg-\[\#000000a8\] {
+    background-color: #000000a8;
+  }
+  .bg-\[\#262843a8\] {
+    background-color: #262843a8;
+  }
   .bg-black {
     background-color: var(--color-black);
   }
@@ -415,6 +421,9 @@
   }
   .pt-5 {
     padding-top: calc(var(--spacing) * 5);
+  }
+  .pb-5 {
+    padding-bottom: calc(var(--spacing) * 5);
   }
   .pb-6 {
     padding-bottom: calc(var(--spacing) * 6);
@@ -477,6 +486,20 @@
     &:hover {
       @media (hover: hover) {
         border-color: var(--color-gray-400);
+      }
+    }
+  }
+  .hover\:bg-\[\#363636\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #363636;
+      }
+    }
+  }
+  .hover\:bg-black {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-black);
       }
     }
   }
