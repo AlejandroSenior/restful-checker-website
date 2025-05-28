@@ -8,7 +8,7 @@
 ![Tailwind
 CSS](https://img.shields.io/badge/Tailwind%20CSS-4.1.7-blue?style=for-the-badge&logo=tailwind-css)
 
-RESTful API Checker is a lightweight Python CLI tool to validate RESTful best practices on OpenAPI/Swagger specs. It generates an easy-to-read HTML report with ✅ correct cases, 🟡 warnings, and ❌ critical issues to help you improve your API design before release.
+RESTful API Checker is a tool to validate RESTful best practices on OpenAPI/Swagger specs. It generates an easy-to-read HTML report with ✅ correct cases, 🟡 warnings, and ❌ critical issues to help you improve your API design before release.
 
 </div>
 
