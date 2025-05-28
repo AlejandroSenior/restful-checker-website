@@ -3,7 +3,7 @@
 <div align="center">
 
 # RESTful API Checker
-<img src="./imgs/web.avif" width="300" height="300"> | <img src="./imgs/web-dialog.avif" width="300" height="300">
+<img src="./imgs/web.avif" width="400" height="400"> | <img src="./imgs/web-dialog.avif" width="400" height="400">
 
 ![Tailwind
 CSS](https://img.shields.io/badge/Tailwind%20CSS-4.1.7-blue?style=for-the-badge&logo=tailwind-css)
