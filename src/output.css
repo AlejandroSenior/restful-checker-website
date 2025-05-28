@@ -178,9 +178,6 @@
   }
 }
 @layer utilities {
-  .fixed {
-    position: fixed;
-  }
   .top-1\/2 {
     top: calc(1/2 * 100%);
   }
@@ -254,8 +251,8 @@
   .max-w-\[600px\] {
     max-width: 600px;
   }
-  .min-w-\[350px\] {
-    min-width: 350px;
+  .min-w-\[600px\] {
+    min-width: 600px;
   }
   .-translate-x-1\/2 {
     --tw-translate-x: calc(calc(1/2 * 100%) * -1);
@@ -383,25 +380,10 @@
   .text-white {
     color: var(--color-white);
   }
-  .hover\:border-solid {
-    &:hover {
-      @media (hover: hover) {
-        --tw-border-style: solid;
-        border-style: solid;
-      }
-    }
-  }
   .hover\:border-gray-400 {
     &:hover {
       @media (hover: hover) {
         border-color: var(--color-gray-400);
-      }
-    }
-  }
-  .hover\:border-gray-500 {
-    &:hover {
-      @media (hover: hover) {
-        border-color: var(--color-gray-500);
       }
     }
   }
