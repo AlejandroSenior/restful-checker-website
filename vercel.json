@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/analyze",
-      "destination": "http://raspberrywl.duckdns.org:53127/analyze"
+      "destination": "http://lianes8server.duckdns.org:53127/analyze"
     }
   ]
 }
