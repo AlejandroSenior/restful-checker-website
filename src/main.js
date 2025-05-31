@@ -45,7 +45,7 @@ const enviarArchivo = async () => {
     $dropzone.classList.add("dropzone-disabled");
 
     const response = await fetch(
-      "http://raspberrywl.duckdns.org:53127/analyze",
+      "/api/analyze",
       {
         method: "POST",
         headers: {

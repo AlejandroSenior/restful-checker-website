@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/analyze",
+      "destination": "http://raspberrywl.duckdns.org:53127/analyze"
+    }
+  ]
+}
