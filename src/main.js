@@ -46,16 +46,13 @@ const sendFile = async () => {
     $dropzone.classList.add("dropzone-disabled");
     $inputUrl.disabled = true;
 
-    const response = await fetch(
-      "http://lianes8server.duckdns.org:53127/analyze",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: await $file2.text(),
-      }
-    );
+    const response = await fetch("/api/analyze", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: await $file2.text(),
+    });
 
     if (!response.ok) {
       throw new Error(`Error del servidor: ${response.status}`);
@@ -97,16 +94,13 @@ const sendUrl = async () => {
     $sendButton.classList.add("animate-pulse");
     $inputUrl.disabled = true;
 
-    const response = await fetch(
-      "http://lianes8server.duckdns.org:53127/analyze",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: url }),
-      }
-    );
+    const response = await fetch("/api/analyze", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: url }),
+    });
 
     if (!response.ok) {
       throw new Error(`Error del servidor: ${response.status}`);
