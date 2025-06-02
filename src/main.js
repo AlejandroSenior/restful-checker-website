@@ -25,8 +25,9 @@ const fileIcon = `<svg
                 d="M9 17h6m-6-4h6M9 9h1m3-6H8.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C5 4.52 5 5.08 5 6.2v11.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C6.52 21 7.08 21 8.2 21h7.6c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874C19 19.48 19 18.92 19 17.8V9m-6-6 6 6m-6-6v4.4c0 .56 0 .84.109 1.054a1 1 0 0 0 .437.437C13.76 9 14.04 9 14.6 9H19"
               />
             </svg>`;
+const $inputUrl = document.getElementById("input-url");
 
-const enviarArchivo = async () => {
+const sendFile = async () => {
   const $input2 = document.getElementById("dropzone-file");
   const $file2 = $input2.files[0];
 
@@ -43,9 +44,10 @@ const enviarArchivo = async () => {
     $sendButton.classList.add("animate-pulse");
     $input.disabled = true;
     $dropzone.classList.add("dropzone-disabled");
+    $inputUrl.disabled = true;
 
     const response = await fetch(
-      "/api/analyze",
+      "http://lianes8server.duckdns.org:53127/analyze",
       {
         method: "POST",
         headers: {
@@ -75,6 +77,56 @@ const enviarArchivo = async () => {
     $sendButton.classList.remove("animate-pulse");
     $input.disabled = false;
     $dropzone.classList.remove("dropzone-disabled");
+    $inputUrl.disabled = false;
+  }
+};
+
+const sendUrl = async () => {
+  const url = $inputUrl.value.trim();
+
+  if (!url) {
+    alert("Por favor, ingresa una URL válida.");
+    return;
+  }
+
+  try {
+    $btnSpinner.classList.remove("hidden");
+    $btnSpinner.classList.add("inline");
+    $btnText.classList.add("hidden");
+    $sendButton.disabled = true;
+    $sendButton.classList.add("animate-pulse");
+    $inputUrl.disabled = true;
+
+    const response = await fetch(
+      "http://lianes8server.duckdns.org:53127/analyze",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: url }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error del servidor: ${response.status}`);
+    }
+
+    // Leer el HTML de la respuesta
+    htmlResult = await response.text();
+
+    // Mostrarlo en el dialog
+    $dialog.showModal();
+    $dialogContent.innerHTML = htmlResult;
+  } catch (error) {
+    console.error("Error al enviar la URL:", error);
+  } finally {
+    $btnSpinner.classList.add("hidden");
+    $btnSpinner.classList.remove("inline");
+    $btnText.classList.remove("hidden");
+    $sendButton.disabled = false;
+    $sendButton.classList.remove("animate-pulse");
+    $inputUrl.disabled = false;
   }
 };
 
@@ -102,8 +154,21 @@ const inputFileChange = () => {
   } else $sendButton.disabled = true;
 };
 
+$inputUrl.addEventListener("input", () => {
+  if ($inputUrl.value.trim()) {
+    $input.disabled = true;
+    $dropzone.classList.add("dropzone-disabled");
+    $sendButton.disabled = false;
+  } else {
+    $input.disabled = false;
+    $dropzone.classList.remove("dropzone-disabled");
+    $sendButton.disabled = true;
+  }
+});
+
 $sendButton.addEventListener("click", () => {
-  enviarArchivo();
+  if ($inputUrl.value.trim()) sendUrl();
+  else sendFile();
 });
 
 $downloadButton.addEventListener("click", () => {
