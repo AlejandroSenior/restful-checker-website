@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/api/analyze",
-      "destination": "http://lianes8server.duckdns.org:53127/analyze"
-    }
-  ]
-}

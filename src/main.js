@@ -46,7 +46,7 @@ const sendFile = async () => {
     $dropzone.classList.add("dropzone-disabled");
     $inputUrl.disabled = true;
 
-    const response = await fetch("/api/analyze", {
+    const response = await fetch("https://restful-checker-api.onrender.com/analyze", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -94,7 +94,7 @@ const sendUrl = async () => {
     $sendButton.classList.add("animate-pulse");
     $inputUrl.disabled = true;
 
-    const response = await fetch("/api/analyze", {
+    const response = await fetch("https://restful-checker-api.onrender.com/analyze", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
